@@ -2,9 +2,11 @@ package wooteco.subway.station;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 import wooteco.subway.station.dao.StationDao;
 import wooteco.subway.station.dto.StationDto;
 
+@Service
 public class StationService {
 
     private final StationDao stationDao;

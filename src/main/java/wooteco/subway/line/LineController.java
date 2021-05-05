@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import wooteco.subway.assembler.Assembler;
 import wooteco.subway.exception.DuplicatedLineNameException;
 import wooteco.subway.exception.VoidLineException;
 import wooteco.subway.line.dto.LineDto;
@@ -24,9 +23,8 @@ public class LineController {
 
     private final LineService lineService;
 
-    public LineController() {
-        Assembler assembler = new Assembler();
-        this.lineService = assembler.getLineService();
+    public LineController(final LineService lineService) {
+        this.lineService = lineService;
     }
 
     @PostMapping("/lines")

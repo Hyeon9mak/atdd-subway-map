@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-import wooteco.subway.assembler.Assembler;
 import wooteco.subway.exception.DuplicatedStationNameException;
 import wooteco.subway.exception.VoidStationException;
 import wooteco.subway.station.dto.StationDto;
@@ -19,9 +18,8 @@ public class StationController {
 
     private final StationService stationService;
 
-    public StationController() {
-        Assembler assembler = new Assembler();
-        this.stationService = assembler.getStationService();
+    public StationController(final StationService stationService) {
+        this.stationService = stationService;
     }
 
     @PostMapping("/stations")

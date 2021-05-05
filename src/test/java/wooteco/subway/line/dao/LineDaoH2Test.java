@@ -1,26 +1,20 @@
-package wooteco.subway.line;
+package wooteco.subway.line.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import wooteco.subway.exception.DuplicatedLineNameException;
 import wooteco.subway.exception.VoidLineException;
-import wooteco.subway.line.dao.LineDaoCache;
+import wooteco.subway.line.Line;
 
-class LineDaoCacheTest {
+class LineDaoH2Test {
 
-    private static final LineDaoCache lineDaoCache = new LineDaoCache();
-    private static Line line;
-
-    @BeforeEach
-    public void setTest() {
-        lineDaoCache.clean();
-        line = lineDaoCache.save(new Line("1호선", "파란색"));
-    }
+    @Autowired
+    private LineDaoH2 lineDao;
 
     @DisplayName("노선 저장")
     @Test
@@ -29,7 +23,7 @@ class LineDaoCacheTest {
         Line line = new Line("10호선", "붉은색");
 
         //when
-        Line requestedLine = lineDaoCache.save(line);
+        Line requestedLine = lineDao.save(line);
 
         //then
         assertThat(requestedLine.getName()).isEqualTo(line.getName());
@@ -44,11 +38,10 @@ class LineDaoCacheTest {
         Line line2 = new Line("2호선", "파란색");
 
         //then
-        assertThatThrownBy(() -> lineDaoCache.save(line1))
+        assertThatThrownBy(() -> lineDao.save(line1))
             .isInstanceOf(DuplicatedLineNameException.class);
 
-
-        assertThatThrownBy(() -> lineDaoCache.save(line2))
+        assertThatThrownBy(() -> lineDao.save(line2))
             .isInstanceOf(DuplicatedLineNameException.class);
     }
 
@@ -57,11 +50,11 @@ class LineDaoCacheTest {
     public void findLine() {
         //given
         Line line1 = new Line("12호선", "분홍색");
-        Line saveLine = lineDaoCache.save(line1);
+        Line saveLine = lineDao.save(line1);
         long id = saveLine.getId();
 
         //when
-        Line requestedLine = lineDaoCache.findOne(id);
+        Line requestedLine = lineDao.findOne(id);
 
         //then
         assertThat(requestedLine.getId()).isEqualTo(id);
@@ -78,7 +71,7 @@ class LineDaoCacheTest {
         long id = -1;
 
         //then
-        assertThatThrownBy(() -> lineDaoCache.findOne(id))
+        assertThatThrownBy(() -> lineDao.findOne(id))
             .isInstanceOf(VoidLineException.class);
     }
 
@@ -86,9 +79,11 @@ class LineDaoCacheTest {
     @Test
     void findAll() {
         //given
+        Line line = new Line("10호선", "붉은색");
+        lineDao.save(line);
 
         //when
-        List<Line> lines = lineDaoCache.findAll();
+        List<Line> lines = lineDao.findAll();
 
         //then
         assertThat(lines.get(0)).isEqualTo(line);
@@ -99,15 +94,15 @@ class LineDaoCacheTest {
     void update() {
         //given
         Line line1 = new Line("11호선", "보라색");
-        Line saveLine = lineDaoCache.save(line1);
+        Line saveLine = lineDao.save(line1);
         long id = saveLine.getId();
         String requestName = "분당선";
         String requestColor = "노란색";
         Line requestLine = new Line(requestName, requestColor);
 
         //when
-        lineDaoCache.update((int) id, requestLine);
-        Line responseLine = lineDaoCache.findOne(id);
+        lineDao.update((int) id, requestLine);
+        Line responseLine = lineDao.findOne(id);
 
         //then
         assertThat(responseLine.getName()).isEqualTo(requestName);
@@ -119,14 +114,14 @@ class LineDaoCacheTest {
     void remove() {
         //given
         Line line1 = new Line("12호선", "분홍색");
-        Line saveLine = lineDaoCache.save(line1);
+        Line saveLine = lineDao.save(line1);
         long id = saveLine.getId();
 
         //when
-        lineDaoCache.delete(id);
+        lineDao.delete(id);
 
         //then
-        assertThatThrownBy(() -> lineDaoCache.findOne(id))
+        assertThatThrownBy(() -> lineDao.findOne(id))
             .isInstanceOf(VoidLineException.class);
     }
 
@@ -139,7 +134,7 @@ class LineDaoCacheTest {
         //when
 
         //then
-        assertThatThrownBy(() -> lineDaoCache.delete(id))
+        assertThatThrownBy(() -> lineDao.delete(id))
             .isInstanceOf(VoidLineException.class);
     }
 }

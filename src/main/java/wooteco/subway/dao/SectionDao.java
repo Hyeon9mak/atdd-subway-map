@@ -11,7 +11,15 @@ public class SectionDao {
         return null;
     }
 
+    public int update(final Section section) {
+        return 0;
+    }
+
     public List<Section> findSectionsByLineId(final Long lineId) {
         return null;
+    }
+
+    public int delete(final Section section) {
+        return 0;
     }
 }

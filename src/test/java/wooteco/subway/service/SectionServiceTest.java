@@ -12,9 +12,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import wooteco.subway.controller.dto.request.LineRequest;
+import wooteco.subway.controller.dto.request.SectionRequest;
 import wooteco.subway.dao.SectionDao;
 import wooteco.subway.domain.Section;
 import wooteco.subway.exception.section.InvalidSectionOnLineException;
+import wooteco.subway.service.dto.DeleteSectionServiceDto;
 import wooteco.subway.service.dto.SectionServiceDto;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,8 +34,8 @@ public class SectionServiceTest {
         // given
         long sectionId = 1L;
         long lineId = 1L;
-        long downStationId = 3L;
-        long upStationId = 4L;
+        long downStationId = 4L;
+        long upStationId = 3L;
         int distance = 10;
         SectionServiceDto requestDto = new SectionServiceDto(lineId, upStationId, downStationId, distance);
         when(mockSectionDao.save(any(Section.class)))
@@ -71,6 +74,7 @@ public class SectionServiceTest {
             )
         );
 
+
         // when
 
         // then
@@ -99,5 +103,73 @@ public class SectionServiceTest {
         // then
         assertThatThrownBy(() -> sectionService.save(requestDto))
             .isInstanceOf(InvalidSectionOnLineException.class);
+    }
+
+    @Test
+    @DisplayName("[목 객체 보완 필요] 구간 삽입 시에 존재하는 역 사이일 경우 갈림길없이 노선에 삽입")
+    void insertAmongTheStations() {
+        // given
+        long sectionId = 2L;
+        long lineId = 1L;
+        long downStationId = 2L;
+        long upStationId = 1L;
+        int distance = 5;
+        SectionServiceDto requestDto = new SectionServiceDto(lineId, upStationId, downStationId, distance);
+        when(mockSectionDao.save(any(Section.class)))
+            .thenReturn(new Section(sectionId, lineId, upStationId, downStationId, distance));
+        when(mockSectionDao.update(any(Section.class)))
+            .thenReturn(1);
+        when(mockSectionDao.findSectionsByLineId(any(long.class))).thenReturn(
+            Arrays.asList(
+                new Section(1L, 1L, 1L, 3L, 10)
+            )
+        );
+
+        // when
+        SectionServiceDto sectionServiceDto = sectionService.save(requestDto);
+
+        // then
+        assertThat(sectionServiceDto.getId()).isEqualTo(2L);
+        assertThat(sectionServiceDto.getLineId()).isEqualTo(1L);
+        assertThat(sectionServiceDto.getDownStationId()).isEqualTo(2L);
+        assertThat(sectionServiceDto.getUpStationId()).isEqualTo(1L);
+        assertThat(sectionServiceDto.getDistance()).isEqualTo(5);
+    }
+
+    @Test
+    @DisplayName("[목 객체 보완 필요] 구간 삽입 시에 역 중간 거리 이상")
+    void largerIntervalDistanceBetweenExisted() {
+        // given
+        long sectionId = 2L;
+        long lineId = 1L;
+        long downStationId = 2L;
+        long upStationId = 1L;
+        int distance = 10;
+        SectionServiceDto requestDto = new SectionServiceDto(lineId, upStationId, downStationId, distance);
+        when(mockSectionDao.findSectionsByLineId(any(long.class))).thenReturn(
+            Arrays.asList(
+                new Section(1L, 1L, 1L, 3L, 10)
+            )
+        );
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> sectionService.save(requestDto))
+            .isInstanceOf(InvalidSectionOnLineException.class);
+    }
+
+    @Test
+    @DisplayName("[목 객체 보완 필요] 노선에 존재하는 구간 삭제")
+    void deleteExistedSectionFromLine() {
+        // given
+        when(mockSectionDao.delete(any(Section.class))).thenReturn(1);
+        DeleteSectionServiceDto dto = new DeleteSectionServiceDto(1L, 1L);
+
+        // when
+        sectionService.delete(dto);
+
+        // then
+
     }
 }

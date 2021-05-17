@@ -63,13 +63,13 @@ public class SectionDao {
 
     public List<Section> findAllByLine(Line line) {
         String sql = "SELECT s.id AS section_id, line.id AS line_id, line.name AS line_name, line.color AS line_color, "
-            + "up_table.id AS up_id, up_table.name AS up_name, "
-            + "down_table.id AS down_id, down_table.name AS down_name, "
+            + "up_station.id AS up_id, up_station.name AS up_name, "
+            + "down_station.id AS down_id, down_station.name AS down_name, "
             + "distance "
             + "FROM section AS s "
             + "LEFT JOIN line ON s.line_id = line.id "
-            + "LEFT JOIN station AS up_table ON s.up_station_id = up_table.id "
-            + "LEFT JOIN station AS down_table ON s.down_station_id = down_table.id "
+            + "LEFT JOIN station AS up_station ON s.up_station_id = up_station.id "
+            + "LEFT JOIN station AS down_station ON s.down_station_id = down_station.id "
             + "WHERE s.line_id = ?";
         return jdbcTemplate.query(sql, rowMapper, line.getId());
     }
@@ -77,13 +77,13 @@ public class SectionDao {
     public Optional<Section> findByLineAndUpStation(Line line, Station upStation) {
         try {
             String sql = "SELECT s.id AS section_id, line.id AS line_id, line.name AS line_name, line.color AS line_color, "
-                + "up_table.id AS up_id, up_table.name AS up_name, "
-                + "down_table.id AS down_id, down_table.name AS down_name, "
+                + "up_station.id AS up_id, up_station.name AS up_name, "
+                + "down_station.id AS down_id, down_station.name AS down_name, "
                 + "distance "
                 + "FROM section AS s "
                 + "LEFT JOIN line ON s.line_id = line.id "
-                + "LEFT JOIN station AS up_table ON s.up_station_id = up_table.id "
-                + "LEFT JOIN station AS down_table ON s.down_station_id = down_table.id "
+                + "LEFT JOIN station AS up_station ON s.up_station_id = up_station.id "
+                + "LEFT JOIN station AS down_station ON s.down_station_id = down_station.id "
                 + "WHERE s.line_id = ? AND s.up_station_id = ?";
             return Optional
                 .ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, line.getId(), upStation.getId()));
@@ -95,13 +95,13 @@ public class SectionDao {
     public Optional<Section> findByLineAndDownStation(Line line, Station downStation) {
         try {
             String sql = "SELECT s.id AS section_id, line.id AS line_id, line.name AS line_name, line.color AS line_color, "
-                + "up_table.id AS up_id, up_table.name AS up_name, "
-                + "down_table.id AS down_id, down_table.name AS down_name, "
+                + "up_station.id AS up_id, up_station.name AS up_name, "
+                + "down_station.id AS down_id, down_station.name AS down_name, "
                 + "distance "
                 + "FROM section AS s "
                 + "LEFT JOIN line ON s.line_id = line.id "
-                + "LEFT JOIN station AS up_table ON s.up_station_id = up_table.id "
-                + "LEFT JOIN station AS down_table ON s.down_station_id = down_table.id "
+                + "LEFT JOIN station AS up_station ON s.up_station_id = up_station.id "
+                + "LEFT JOIN station AS down_station ON s.down_station_id = down_station.id "
                 + "WHERE s.line_id = ? AND s.down_station_id = ?";
             return Optional
                 .ofNullable(jdbcTemplate.queryForObject(sql, rowMapper, line.getId(), downStation.getId()));

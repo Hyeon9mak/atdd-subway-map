@@ -43,7 +43,6 @@ public class LineService {
         return LineServiceDto.from(saveLine);
     }
 
-    @Transactional
     public List<LineServiceDto> findAll() {
         return lineDao.showAll()
             .stream()
@@ -51,7 +50,6 @@ public class LineService {
             .collect(Collectors.toList());
     }
 
-    @Transactional
     public ReadLineDto findOne(@Valid LineServiceDto lineServiceDto) {
         Line line = lineDao.show(lineServiceDto.getId());
         List<StationResponse> stationResponses = sectionService.findAllByLind(line);

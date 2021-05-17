@@ -19,8 +19,7 @@ public class StationService {
     public StationService(StationDao stationDao) {
         this.stationDao = stationDao;
     }
-
-    @Transactional
+    
     public List<StationServiceDto> showStations() {
         List<Station> stations = stationDao.showAll();
 

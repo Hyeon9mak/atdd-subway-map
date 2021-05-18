@@ -2,7 +2,7 @@ package wooteco.subway.service.dto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import wooteco.subway.controller.dto.request.SectionRequest;
+import wooteco.subway.web.dto.request.SectionRequest;
 
 public class CreateSectionDto {
 

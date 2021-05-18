@@ -1,4 +1,4 @@
-package wooteco.subway.controller.dto.request;
+package wooteco.subway.web.dto.request;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,7 +7,7 @@ import javax.validation.Validator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LineRequestTest {
+class SectionRequestTest {
 
     @Test
     @DisplayName("Request 생성에 필요한 정보가 Null 일 때 예외처리")
@@ -16,9 +16,9 @@ class LineRequestTest {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
         // when
-        LineRequest lineRequest = new LineRequest(null, null, null, null, 1);
+        SectionRequest sectionRequest = new SectionRequest(null, null, 1);
 
         //then
-        assertThat(validator.validate(lineRequest).size()).isEqualTo(4);
+        assertThat(validator.validate(sectionRequest).size()).isEqualTo(2);
     }
 }

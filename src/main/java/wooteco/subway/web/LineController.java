@@ -1,4 +1,4 @@
-package wooteco.subway.controller;
+package wooteco.subway.web;
 
 import java.net.URI;
 import java.util.List;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import wooteco.subway.controller.dto.request.LineRequest;
-import wooteco.subway.controller.dto.request.SectionRequest;
-import wooteco.subway.controller.dto.request.UpdateLineRequest;
-import wooteco.subway.controller.dto.response.LineResponse;
+import wooteco.subway.web.dto.request.LineRequest;
+import wooteco.subway.web.dto.request.SectionRequest;
+import wooteco.subway.web.dto.request.UpdateLineRequest;
+import wooteco.subway.web.dto.response.LineResponse;
 import wooteco.subway.service.LineService;
 import wooteco.subway.service.dto.CreateLineDto;
 import wooteco.subway.service.dto.CreateSectionDto;

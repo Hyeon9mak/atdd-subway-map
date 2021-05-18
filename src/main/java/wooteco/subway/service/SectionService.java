@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
-import wooteco.subway.controller.dto.response.StationResponse;
+import wooteco.subway.web.dto.response.StationResponse;
 import wooteco.subway.dao.SectionDao;
 import wooteco.subway.domain.Distance;
 import wooteco.subway.domain.Line;

@@ -1,4 +1,4 @@
-package wooteco.subway.controller;
+package wooteco.subway.web;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;

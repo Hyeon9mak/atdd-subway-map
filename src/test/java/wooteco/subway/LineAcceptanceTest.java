@@ -12,11 +12,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import wooteco.subway.controller.dto.request.LineRequest;
-import wooteco.subway.controller.dto.request.StationRequest;
-import wooteco.subway.controller.dto.request.UpdateLineRequest;
-import wooteco.subway.controller.dto.response.LineResponse;
-import wooteco.subway.controller.dto.response.StationResponse;
+import wooteco.subway.web.dto.request.LineRequest;
+import wooteco.subway.web.dto.request.StationRequest;
+import wooteco.subway.web.dto.request.UpdateLineRequest;
+import wooteco.subway.web.dto.response.LineResponse;
+import wooteco.subway.web.dto.response.StationResponse;
 
 public class LineAcceptanceTest extends AcceptanceTest {
 

@@ -4,7 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import wooteco.subway.controller.dto.request.LineRequest;
+import wooteco.subway.web.dto.request.LineRequest;
 import wooteco.subway.domain.Line;
 
 public class CreateLineDto {

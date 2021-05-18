@@ -12,8 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import wooteco.subway.controller.dto.request.StationRequest;
-import wooteco.subway.controller.dto.response.StationResponse;
+import wooteco.subway.web.dto.request.StationRequest;
+import wooteco.subway.web.dto.response.StationResponse;
 
 @DisplayName("지하철역 관련 기능")
 public class StationAcceptanceTest extends AcceptanceTest {

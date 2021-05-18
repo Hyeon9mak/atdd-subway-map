@@ -3,7 +3,7 @@ package wooteco.subway.service.dto;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import wooteco.subway.controller.dto.response.StationResponse;
+import wooteco.subway.web.dto.response.StationResponse;
 import wooteco.subway.domain.Line;
 
 public class ReadLineDto {

@@ -1,4 +1,4 @@
-package wooteco.subway.controller.dto.request;
+package wooteco.subway.web.dto.request;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -3,8 +3,8 @@ package wooteco.subway.service.dto;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import wooteco.subway.controller.dto.request.LineRequest;
-import wooteco.subway.controller.dto.request.UpdateLineRequest;
+import wooteco.subway.web.dto.request.LineRequest;
+import wooteco.subway.web.dto.request.UpdateLineRequest;
 import wooteco.subway.domain.Line;
 
 public class LineServiceDto {

@@ -1,4 +1,4 @@
-package wooteco.subway.controller;
+package wooteco.subway.web;
 
 import java.net.URI;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wooteco.subway.controller.dto.request.StationRequest;
-import wooteco.subway.controller.dto.response.StationResponse;
+import wooteco.subway.web.dto.request.StationRequest;
+import wooteco.subway.web.dto.response.StationResponse;
 import wooteco.subway.service.StationService;
 import wooteco.subway.service.dto.StationServiceDto;
 
